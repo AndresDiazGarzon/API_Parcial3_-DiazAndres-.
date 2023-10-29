@@ -11,12 +11,7 @@ namespace HotelNetwork.Domain.Services
         {
             _context = context;
         }
-        public async Task<IEnumerable<City>> GetCitiesAsync()
-        {
-            return await _context.Cities.ToListAsync();// Aqui lo que hago es traerme todos los datos
-                                                          //tengo en mi tabla Cities
-
-        }
+        public async Task<IEnumerable<City>> GetCitiesAsync() => await _context.Cities.ToListAsync();// Aqui lo que hago es traerme todos los datos//tengo en mi tabla Cities
         public async Task<City> CreateCityAsync(City city)
         {
             try

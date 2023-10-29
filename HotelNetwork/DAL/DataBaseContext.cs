@@ -28,7 +28,7 @@ namespace HotelNetwork.DAL
 
         public DbSet<State> States { get; set; }
 
-        public DbSet<City> Cities { get; set; }    
+        public DbSet<City> Cities { get; set; }
         public DbSet<Hotel> Hotels { get; set; }    
         public DbSet<Room> Rooms { get; set; } 
        

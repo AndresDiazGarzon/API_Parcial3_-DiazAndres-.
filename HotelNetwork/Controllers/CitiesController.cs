@@ -14,10 +14,12 @@ namespace HotelNetwork.Controllers
         {
             _cityService = cityService;
         }
-        
+        // en un controlador los metodos cambian de nombre, y realmente se llaman ACCIONES (ACTIONS) - Si es una
+        // api, se denomina ENDPOINT.
+        // Todo Endpoint retorna un ActionResult, significa que retorna el resultado de una ACCION.
 
         [HttpGet, ActionName("Get")]
-        [Route("GetAll")]// Aqui concateno la URL inicial: URL = api/countries/get
+        [Route("GetAll")]// Aqui concateno la URL inicial: URL = api/cities/get
         public async Task<ActionResult<IEnumerable<City>>> GetCitiesAsync()
         {
             var cities = await _cityService.GetCitiesAsync();// aqui estoy yebdo a mi capa de Domain para traer la lista de paises
@@ -40,7 +42,7 @@ namespace HotelNetwork.Controllers
                 {
                     return NotFound();// NotFound = 484 Http Status Code
                 }
-                return Ok(createdCity);// Retorne un 200 y el objeto Country
+                return Ok(createdCity);// Retorne un 200 y el objeto City
             }
             catch (Exception ex)
             {
@@ -66,8 +68,8 @@ namespace HotelNetwork.Controllers
         }
 
         [HttpGet, ActionName("GetByName")]
-        [Route("GetByName/{name}")]// URL: api/countries/get
-        public async Task<ActionResult<IEnumerable<City>>> GetCityyByNameAsync(string name)
+        [Route("GetByName/{name}")]// URL: api/cities/get
+        public async Task<ActionResult<IEnumerable<City>>> GetCityByNameAsync(string name)
         {
             if (name == null) return BadRequest("Nombre del pais es requerido!");
 
@@ -86,7 +88,7 @@ namespace HotelNetwork.Controllers
             {
                 var editedCity = await _cityService.EditCityAsync(city);
 
-                return Ok(editedCity);// Retorne un 200 y el objeto 
+                return Ok(editedCity);// Retorne un 200 y el objeto City
             }
             catch (Exception ex)
             {

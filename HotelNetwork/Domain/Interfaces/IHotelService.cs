@@ -10,6 +10,8 @@ namespace HotelNetwork.Domain.Interfaces
         Task<Hotel> GetHotelByNameAsync(string name);
         Task<Hotel> EditHotelAsync(Hotel hotel);
         Task<Hotel> DeleteHotelAsync(Guid Id);
+        Task GetHotelsAsync();
+        Task<Hotel> GetHotelByIdAsync(Guid id);
     }
 }
-}
+

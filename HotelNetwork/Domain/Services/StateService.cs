@@ -1,5 +1,6 @@
 ﻿using HotelNetwork.DAL.Entities;
 using HotelNetwork.DAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelNetwork.Domain.Services
 {
@@ -54,7 +55,7 @@ namespace HotelNetwork.Domain.Services
             {
                 state.ModifiedDate = DateTime.Now;
 
-                _context.Countries.Update(state);//El metodo Update que es de EF CORE me sirve para actualizar un objeto
+                Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Country> entityEntry = _context.Countries.Update(state);//El metodo Update que es de EF CORE me sirve para actualizar un objeto
                 await _context.SaveChangesAsync();
 
                 return state;

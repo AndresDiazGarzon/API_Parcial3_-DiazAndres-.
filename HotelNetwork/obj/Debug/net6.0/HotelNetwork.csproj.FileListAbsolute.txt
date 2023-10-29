@@ -1,0 +1,7 @@
+C:\Projects\HotelNetwork1\HotelNetwork\obj\Debug\net6.0\HotelNetwork.csproj.AssemblyReference.cache
+C:\Projects\HotelNetwork1\HotelNetwork\obj\Debug\net6.0\HotelNetwork.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\HotelNetwork1\HotelNetwork\obj\Debug\net6.0\HotelNetwork.AssemblyInfoInputs.cache
+C:\Projects\HotelNetwork1\HotelNetwork\obj\Debug\net6.0\HotelNetwork.AssemblyInfo.cs
+C:\Projects\HotelNetwork1\HotelNetwork\obj\Debug\net6.0\HotelNetwork.csproj.CoreCompileInputs.cache
+C:\Projects\HotelNetwork1\HotelNetwork\obj\Debug\net6.0\HotelNetwork.MvcApplicationPartsAssemblyInfo.cs
+C:\Projects\HotelNetwork1\HotelNetwork\obj\Debug\net6.0\HotelNetwork.MvcApplicationPartsAssemblyInfo.cache
