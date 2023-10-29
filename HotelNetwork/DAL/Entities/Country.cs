@@ -13,6 +13,11 @@ namespace HotelNetwork.DAL.Entities
         // relacion con State
         public ICollection<State>? States { get; set;}
 
-        public ICollection<City> Cities{ get; set;}
+        public ICollection<City>? Cities{ get; set;}
+
+        public ICollection<Hotel>? Hotels  { get; set; }
+
+        public ICollection<Room>? Rooms { get; set; }
+       
     }
 }

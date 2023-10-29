@@ -9,6 +9,6 @@ namespace HotelNetwork.Domain.Interfaces
         Task<State> GetStateByIdAsync(Guid id);
         Task<State> GetStateByNameAsync(string name);
         Task<State> EditStateAsync(State state);
-        Task<State> DeleteStateAsync(Guid Id);
+        Task<State> DeleteStateAsync(Guid Id);  
     }
 }

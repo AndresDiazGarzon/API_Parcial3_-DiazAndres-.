@@ -10,19 +10,19 @@ namespace HotelNetwork.Domain.Services
         {
             _context = context;
         }
-        public async Task<IEnumerable<Country>> GetStatesAsync()
+        public async Task<IEnumerable<State>> GetStatesAsync()
         {
             return await _context.States.ToListAsync();
 
         }
-        public async Task<State> CreateCountryAsync(State state)
+        public async Task<State> CreateStateAsync(State state)
         {
             try
             {
                 state.Id = Guid.NewGuid();// asi se asigna automaticamente un ID a un nuevo registro
                 state.CreateDate = DateTime.Now;
 
-                _context.States.Add(state);//Aqui estoy creado el objedo Country en el contexto de mi BD
+                _context.States.Add(state);//Aqui estoy creado el objedo State en el contexto de mi BD
                 await _context.SaveChangesAsync();// Aqui ya estoy yendo a la BD para hacer el INSERT en la tabla Countries 
 
                 return state;
@@ -36,7 +36,7 @@ namespace HotelNetwork.Domain.Services
 
         }
 
-        public async Task<Country> GetStateByIdAsync(Guid id)
+        public async Task<State> GetStateByIdAsync(Guid id)
         {
             //return await _context.Countries.FindAsync(id); // FindAsyn es un metodo propio del DbContext (Dbset)
             //return await _context.Countries.FirstAsync(x => x.Id == id);// FirstAsync es un metodo de EF CORE
@@ -48,7 +48,7 @@ namespace HotelNetwork.Domain.Services
             return await _context.States.FirstOrDefaultAsync(c => c.Name == name);
         }
 
-        public async Task<Country> EditStateAsync(State state)
+        public async Task<State> EditStateAsync(State state)
         {
             try
             {

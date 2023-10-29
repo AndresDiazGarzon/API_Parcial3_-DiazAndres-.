@@ -8,7 +8,7 @@ namespace HotelNetwork.Controllers
     [Route("api/[controller]")]
     public class CitiesController : Controller
     {
-        private readonly ICountryService _countryService;
+        private readonly ICityService _cityService;
 
         public CitiesController(ICityService cityService)
         {
@@ -31,11 +31,11 @@ namespace HotelNetwork.Controllers
 
         [HttpPost, ActionName("Create")]
         [Route("Create")]
-        public async Task<ActionResult> CreateCountryAsync(City city)
+        public async Task<ActionResult> CreateCityAsync(City city)
         {
             try
             {
-                var createdCity = await _countryService.CreateCityAsync(city);
+                var createdCity = await _cityService.CreateCityAsync(city);
                 if (createdCity == null)
                 {
                     return NotFound();// NotFound = 484 Http Status Code
@@ -58,7 +58,7 @@ namespace HotelNetwork.Controllers
         {
             if (id == null) return BadRequest("Id es requerido!");
 
-            var city = await _countryService.GetCityByIdAsync(id);
+            var city = await _cityService.GetCityByIdAsync(id);
 
             if (city == null) return NotFound();// NotFound = 404 Http Status Code
 
