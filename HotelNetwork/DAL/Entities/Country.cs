@@ -12,5 +12,7 @@ namespace HotelNetwork.DAL.Entities
         [Display (Name = "Estado")]
         // relacion con State
         public ICollection<State>? States { get; set;}
+
+        public ICollection<City> Cities{ get; set;}
     }
 }

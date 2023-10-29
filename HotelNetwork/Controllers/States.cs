@@ -6,13 +6,13 @@ namespace HotelNetwork.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]// esta es la primera parte de la URL de esta API: URL = api/countries
-    public class CountriesController : Controller
+    public class StatesController : Controller
     {
-        private readonly ICountryService _countryService;
+        private readonly IStateService _stateService;
 
-        public CountriesController(ICountryService countryService)
+        public StatesController(IStateService stateService)
         {
-            _countryService = countryService;
+            _stateService = stateService;
         }
         // en un controlador los metodos cambian de nombre, y realmente se llaman ACCIONES (ACTIONS) - Si es una
         // api, se denomina ENDPOINT.
@@ -20,47 +20,47 @@ namespace HotelNetwork.Controllers
 
         [HttpGet, ActionName("Get")]
         [Route("GetAll")]// Aqui concateno la URL inicial: URL = api/countries/get
-        public async Task<ActionResult<IEnumerable<Country>>> GetCountriesAsync()
+        public async Task<ActionResult<IEnumerable<State>>> GetStatesAsync()
         {
-            var countries = await _countryService.GetCountriesAsync();// aqui estoy yebdo a mi capa de Domain para traer la lista de paises
-            if (countries == null || !countries.Any()) // el metodo Any () significa si hay al menos un elemento.
+            var states = await _stateService.GetStatesAsync();// aqui estoy yebdo a mi capa de Domain para traer la lista de paises
+            if (states == null || !states.Any()) // el metodo Any () significa si hay al menos un elemento.
                                                        // el metodo !Any() significa si no hay absoluta/ nada.
             {
                 return NotFound();// NotFound = 404 Http Status Code
             }
-            return Ok(countries);// ok = 200 Http Status Code
+            return Ok(states);// ok = 200 Http Status Code
         }
 
         [HttpPost, ActionName("Create")]
         [Route("Create")]
-        public async Task<ActionResult> CreateCountryAsync(Country country)
+        public async Task<ActionResult> CreateStateAsync(Country state)
         {
             try
             {
-                var createdCountry = await _countryService.CreateCountryAsync(country);
+                var createdCountry = await _stateService.CreateStateAsync(state);
                 if (createdCountry == null)
                 {
                     return NotFound();// NotFound = 484 Http Status Code
                 }
-                return Ok(createdCountry);// Retorne un 200 y el objeto Country
+                return Ok(createdState);// Retorne un 200 y el objeto Country
             }
             catch (Exception ex)
             {
                 if (ex.Message.Contains("duplicate"))
                 {
-                    return Conflict(string.Format("El pais {0} ya existe.", country.Name));
+                    return Conflict(string.Format("El pais {0} ya existe.", state.Name));
                 }
                 return Conflict(ex.Message);
             }
         }
 
         [HttpGet, ActionName("Get")]
-        [Route("GetById/{id}")]// URL: api/countries/get
-        public async Task<ActionResult<IEnumerable<Country>>> GetCountryByIdAsync(Guid id)
+        [Route("GetById/{id}")]
+        public async Task<ActionResult<IEnumerable<State>>> GetCountryByIdAsync(Guid id)
         {
             if (id == null) return BadRequest("Id es requerido!");
 
-            var country = await _countryService.GetCountryByIdAsync(id);
+            var country = await _stateService.GetStateByIdAsync(id);
 
             if (country == null) return NotFound();// NotFound = 404 Http Status Code
 
@@ -68,32 +68,32 @@ namespace HotelNetwork.Controllers
         }
 
         [HttpGet, ActionName("GetByName")]
-        [Route("GetByName/{name}")]// URL: api/countries/get
-        public async Task<ActionResult<IEnumerable<Country>>> GetCountryByNameAsync(string name)
+        [Route("GetByName/{name}")]
+        public async Task<ActionResult<IEnumerable<State>>> GetStateByNameAsync(string name)
         {
             if (name == null) return BadRequest("Nombre del pais es requerido!");
 
-            var country = await _countryService.GetCountryByNameAsync(name);
+            var state = await _stateService.GetStateByNameAsync(name);
 
-            if (country == null) return NotFound();// NotFound = 404 Http Status Code
+            if (state == null) return NotFound();// NotFound = 404 Http Status Code
 
-            return Ok(country);// ok = 200 Http Status Code
+            return Ok(state);// ok = 200 Http Status Code
         }
 
         [HttpPut, ActionName("Edit")]// put es para editar
         [Route("Edit")]
-        public async Task<ActionResult<Country>> EditCountryAsync(Country country)
+        public async Task<ActionResult<State>> EditCountryAsync(State state)
         {
             try
             {
-                var editedCountry = await _countryService.EditCountryAsync(country);
+                var editedState= await _stateService.EditStateAsync(state);
                
-                return Ok(editedCountry);// Retorne un 200 y el objeto Country
+                return Ok(editedState);
             }
             catch (Exception ex)
             {
                 if (ex.Message.Contains("duplicate"))
-                    return Conflict(string.Format("{0} ya existe.", country.Name));
+                    return Conflict(string.Format("{0} ya existe.", state.Name));
                 
                 return Conflict(ex.Message);
             }
@@ -101,14 +101,14 @@ namespace HotelNetwork.Controllers
 
         [HttpDelete, ActionName("Delete")]
         [Route("Delete")]
-        public async Task<ActionResult<Country>> DeleteCountryAsync(Guid id)
+        public async Task<ActionResult<State>> DeleteStateAsync(Guid id)
         {
            if (id == null) return BadRequest("Id es requerido!");
 
-           var deletedCountry = await _countryService.DeleteCountryAsync(id);
+           var deletedState = await _stateService.DeleteStateAsync(id);
 
-           if (deletedCountry == null) return NotFound("Pais no encontrado");
-           return Ok(deletedCountry);
+           if (deletedState == null) return NotFound("Estado/Departamento no encontrado");
+           return Ok(deletedState);
         }
     }
 }

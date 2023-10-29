@@ -16,5 +16,6 @@ namespace HotelNetwork.DAL.Entities
 
         [Display(Name = "Id País")]
         public Guid CountryId { get; set; }// FK
+        public DateTime CreateDate { get; internal set; }
     }
 }
