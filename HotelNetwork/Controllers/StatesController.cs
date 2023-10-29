@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using HotelNetwork.DAL.Entities;
+﻿using HotelNetwork.DAL.Entities;
 using HotelNetwork.Domain.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HotelNetwork.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]// esta es la primera parte de la URL de esta API: URL = api/countries
+    [Route("api/[controller]")]
     public class StatesController : Controller
     {
         private readonly IStateService _stateService;
@@ -19,8 +19,8 @@ namespace HotelNetwork.Controllers
         // Todo Endpoint retorna un ActionResult, significa que retorna el resultado de una ACCION.
 
         [HttpGet, ActionName("Get")]
-        [Route("GetAll")]// Aqui concateno la URL inicial: URL = api/countries/get
-        public async Task<ActionResult<IEnumerable<State>>> GetStatesAsync()
+        [Route("GetAll")]// Aqui concateno la URL inicial: URL = api/states/get
+        public async Task<ActionResult<IEnumerable<State>>> GetStateAsync()
         {
             var states = await _stateService.GetStatesAsync();// aqui estoy yebdo a mi capa de Domain para traer la lista de paises
             if (states == null || !states.Any()) // el metodo Any () significa si hay al menos un elemento.
@@ -33,42 +33,42 @@ namespace HotelNetwork.Controllers
 
         [HttpPost, ActionName("Create")]
         [Route("Create")]
-        public async Task<ActionResult> CreateStateAsync(Country state)
+        public async Task<ActionResult> CreateStateAsync(State state)
         {
             try
             {
-                var createdCountry = await _stateService.CreateStateAsync(state);
-                if (createdCountry == null)
+                var createdState = await _stateService.CreateStateAsync(state);
+                if (createdState == null)
                 {
                     return NotFound();// NotFound = 484 Http Status Code
                 }
-                return Ok(createdState);// Retorne un 200 y el objeto Country
+                return Ok(createdState);// Retorne un 200 y el objeto 
             }
             catch (Exception ex)
             {
                 if (ex.Message.Contains("duplicate"))
                 {
-                    return Conflict(string.Format("El pais {0} ya existe.", state.Name));
+                    return Conflict(string.Format("El Estado/Departamento {0} ya existe.", state.Name));
                 }
                 return Conflict(ex.Message);
             }
         }
 
         [HttpGet, ActionName("Get")]
-        [Route("GetById/{id}")]
-        public async Task<ActionResult<IEnumerable<State>>> GetCountryByIdAsync(Guid id)
+        [Route("GetById/{id}")]// URL: api/states/get
+        public async Task<ActionResult<IEnumerable<State>>> GetStateByIdAsync(Guid id)
         {
             if (id == null) return BadRequest("Id es requerido!");
 
-            var country = await _stateService.GetStateByIdAsync(id);
+            var state = await _stateService.GetStateByIdAsync(id);
 
-            if (country == null) return NotFound();// NotFound = 404 Http Status Code
+            if (state == null) return NotFound();// NotFound = 404 Http Status Code
 
-            return Ok(country);// ok = 200 Http Status Code
+            return Ok(state);// ok = 200 Http Status Code
         }
 
         [HttpGet, ActionName("GetByName")]
-        [Route("GetByName/{name}")]
+        [Route("GetByName/{name}")]// URL: api/states/get
         public async Task<ActionResult<IEnumerable<State>>> GetStateByNameAsync(string name)
         {
             if (name == null) return BadRequest("Nombre del pais es requerido!");
@@ -82,19 +82,19 @@ namespace HotelNetwork.Controllers
 
         [HttpPut, ActionName("Edit")]// put es para editar
         [Route("Edit")]
-        public async Task<ActionResult<State>> EditCountryAsync(State state)
+        public async Task<ActionResult<State>> EditStateAsync(State state)
         {
             try
             {
-                var editedState= await _stateService.EditStateAsync(state);
-               
-                return Ok(editedState);
+                var editedState = await _stateService.EditStateAsync(state);
+
+                return Ok(editedState);// Retorne un 200 y el objeto 
             }
             catch (Exception ex)
             {
                 if (ex.Message.Contains("duplicate"))
                     return Conflict(string.Format("{0} ya existe.", state.Name));
-                
+
                 return Conflict(ex.Message);
             }
         }
@@ -103,12 +103,12 @@ namespace HotelNetwork.Controllers
         [Route("Delete")]
         public async Task<ActionResult<State>> DeleteStateAsync(Guid id)
         {
-           if (id == null) return BadRequest("Id es requerido!");
+            if (id == null) return BadRequest("Id es requerido!");
 
-           var deletedState = await _stateService.DeleteStateAsync(id);
+            var deletedState = await _stateService.DeleteStateAsync(id);
 
-           if (deletedState == null) return NotFound("Estado/Departamento no encontrado");
-           return Ok(deletedState);
+            if (deletedState == null) return NotFound("Estado/Departamento no encontrado");
+            return Ok(deletedState);
         }
     }
 }

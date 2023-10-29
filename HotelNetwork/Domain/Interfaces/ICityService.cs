@@ -1,6 +1,6 @@
 ﻿namespace HotelNetwork.Domain.Interfaces
 {
-    public interface IStateService
+    public interface ICityService
     {
     }
 }
