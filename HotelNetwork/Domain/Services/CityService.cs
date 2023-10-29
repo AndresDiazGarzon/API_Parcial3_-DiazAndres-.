@@ -11,7 +11,11 @@ namespace HotelNetwork.Domain.Services
         {
             _context = context;
         }
-        public async Task<IEnumerable<City>> GetCitiesAsync() => await _context.Cities.ToListAsync();// Aqui lo que hago es traerme todos los datos//tengo en mi tabla Cities
+        public async Task<IEnumerable<City>> GetCitiesAsync()
+        {
+            return await _context.Cities.ToListAsync();// Aqui lo que hago es traerme todos los datos//tengo en mi tabla Cities
+        }
+
         public async Task<City> CreateCityAsync(City city)
         {
             try
@@ -19,7 +23,7 @@ namespace HotelNetwork.Domain.Services
                 city.Id = Guid.NewGuid();// asi se asigna automaticamente un ID a un nuevo registro
                 city.CreateDate = DateTime.Now;
 
-                _context.Cities.Add(city);//Aqui estoy creado el objedo City en el contexto de mi BD
+                object value = _context.Cities.Add(city);//Aqui estoy creado el objedo City en el contexto de mi BD
                 await _context.SaveChangesAsync();// Aqui ya estoy yendo a la BD para hacer el INSERT en la tabla Cities 
 
                 return city;
@@ -70,7 +74,7 @@ namespace HotelNetwork.Domain.Services
                 var city = await _context.Cities.FirstOrDefaultAsync(c => c.Id == id);
                 if (city == null) return null; // si el pais no existe, entonces me retorna un NULL
 
-                _context.Cities.Remove(city);
+                object value = _context.Cities.Remove(city);
                 await _context.SaveChangesAsync();
 
                 return city;

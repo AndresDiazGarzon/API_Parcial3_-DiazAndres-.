@@ -58,6 +58,11 @@ namespace HotelNetwork.Controllers
             }
         }
 
+        private ActionResult NotFound()
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpGet, ActionName("Get")]
         [Route("GetById/{id}")]// URL: api/rooms/get
         public async Task<ActionResult<IEnumerable<Room>>> GetRoomByIdAsync(Guid id)
@@ -82,11 +87,10 @@ namespace HotelNetwork.Controllers
         {
             if (name == null) return BadRequest("Nombre del pais es requerido!");
 
-            var room = await _roomService.GetRoomByNameAsync(name);
 
-            if (room == null) return NotFound();// NotFound = 404 Http Status Code
+            if ((Room?)await _roomService.GetRoomByNameAsync(name) == null) return NotFound();// NotFound = 404 Http Status Code
 
-            return Ok(room);// ok = 200 Http Status Code
+            return Ok(editedRoom: await _roomService.GetRoomByNameAsync(name));// ok = 200 Http Status Code
         }
 
         private ActionResult<IEnumerable<Room>> BadRequest(string v)
@@ -94,7 +98,7 @@ namespace HotelNetwork.Controllers
             throw new NotImplementedException();
         }
 
-        private ActionResult<IEnumerable<Room>> NotFound()
+        private ActionResult<IEnumerable<Room>> NotFound(string v)
         {
             throw new NotImplementedException();
         }

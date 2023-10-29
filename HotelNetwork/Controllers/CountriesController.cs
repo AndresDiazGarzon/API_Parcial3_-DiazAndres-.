@@ -39,7 +39,7 @@ namespace HotelNetwork.Controllers
         {
             try
             {
-                var createdCountry = await _countryService.CreateCountryAsync(country);
+                var createdCountry = await _countryService.CreateCountryAsync(country, country.CreateDate);
 
                 if (createdCountry == null)
                 {

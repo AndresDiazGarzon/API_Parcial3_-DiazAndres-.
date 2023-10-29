@@ -11,5 +11,6 @@ namespace HotelNetwork.Domain.Interfaces
         Task<Room> EditRoomAsync(Room room);
         Task<Room> DeleteRoomAsync(Guid Id);
         Task<Room> GetRoomByIdAsync(Guid id);
+        Task<Room> GetRoomsAsync();
     }
 }

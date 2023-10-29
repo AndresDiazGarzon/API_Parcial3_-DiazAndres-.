@@ -2,7 +2,7 @@
 
 namespace HotelNetwork.DAL.Entities
 {
-    public class City
+    public class City : ICity
     {
         [Display(Name = "Ciudad ")]
         [MaxLength(50, ErrorMessage = "El campo {0} debe tener maximo {1} caracteres")]
@@ -11,11 +11,11 @@ namespace HotelNetwork.DAL.Entities
         public string Name { get; set; }
         [Display(Name = "Estado")]
 
-        
+
         public State? State { get; set; }// este representa un objeto de COUNTRY
 
         [Display(Name = "Id Estado")]
-        public Guid StateId  { get; set; }// FK
+        public Guid StateId { get; set; }// FK
         public Guid Id { get; internal set; }
         public DateTime CreateDate { get; internal set; }
     }

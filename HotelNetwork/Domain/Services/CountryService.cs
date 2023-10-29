@@ -19,12 +19,12 @@ namespace HotelNetwork.Domain.Services
             //tengo en mi tabla Countries
             
         }
-        public async Task<Country> CreateCountryAsync(Country  country)
+        public async Task<Country> CreateCountryAsync(Country  country, DateTime? createDate)
         {
             try 
             {
                 country.Id = Guid.NewGuid();// asi se asigna automaticamente un ID a un nuevo registro
-                country.CreateDate = DateTime.Now;
+                createDate = DateTime.Now;
 
                 _context.Countries.Add(country);//Aqui estoy creado el objedo Country en el contexto de mi BD
                 await _context.SaveChangesAsync();// Aqui ya estoy yendo a la BD para hacer el INSERT en la tabla Countries 
@@ -86,6 +86,11 @@ namespace HotelNetwork.Domain.Services
             {
                 throw new Exception(dbUpdateException.InnerException?.Message ?? dbUpdateException.Message);// Coallesences Notation --> ?
             }
+        }
+
+        public Task<Country> CreateCountryAsync(Country country)
+        {
+            throw new NotImplementedException();
         }
     }
 }
