@@ -15,7 +15,10 @@ namespace HotelNetwork.Controllers
             _hotelService = hotelService;
         }
 
-        public async Task<void> GetHotelsAsync() => await _hotelService.GetHotelsAsync();
+        public async Task<void> GetHotelsAsync()
+        {
+            return await _hotelService.GetHotelsAsync();
+        }
 
         [HttpPost, ActionName("Create")]
         [Route("Create")]
@@ -59,7 +62,10 @@ namespace HotelNetwork.Controllers
         [Route("GetById/{id}")]// URL: api/hotels/get
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotelByIdAsync(Guid id)
         {
-            if (id == null) return BadRequest("Id es requerido!");
+            if (id == null)
+            {
+                return BadRequest("Id es requerido!");
+            }
 
             var hotel = await _hotelService.GetHotelByIdAsync(id);
 

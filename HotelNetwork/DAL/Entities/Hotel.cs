@@ -18,5 +18,6 @@ namespace HotelNetwork.DAL.Entities
         public Guid CiudadId { get; set; }// FK
         public DateTime CreateDate { get; internal set; }
         public Guid Id { get; internal set; }
+        public DateTime ModifiedDate { get; internal set; }
     }
 }

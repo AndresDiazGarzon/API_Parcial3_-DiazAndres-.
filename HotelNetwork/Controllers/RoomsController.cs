@@ -12,6 +12,7 @@ namespace HotelNetwork.Controllers
         private readonly IRoomService _hotelService;
 
         private readonly IRoomService _roomService;
+        private Room room;
 
         public RoomsController(IRoomService roomService)
         {
@@ -45,13 +46,13 @@ namespace HotelNetwork.Controllers
                 {
                     return NotFound();// NotFound = 484 Http Status Code
                 }
-                return Ok(createdRoom);// Retorne un 200 y el objeto Room
+                return Ok(editedRoom: createdRoom);// Retorne un 200 y el objeto Room
             }
             catch (Exception ex)
             {
                 if (ex.Message.Contains("duplicate"))
                 {
-                    return Conflict(string.Format("El pais {0} ya existe.", room.Name));
+                    return Conflict(v: string.Format("El pais {0} ya existe.", room.Name));
                 }
                 return Conflict(ex.Message);
             }
@@ -70,9 +71,14 @@ namespace HotelNetwork.Controllers
             return Ok(room);// ok = 200 Http Status Code
         }
 
+        public Room GetRoom()
+        {
+            return room;
+        }
+
         [HttpGet, ActionName("GetByName")]
         [Route("GetByName/{name}")]// URL: api/rooms/get
-        public async Task<ActionResult<IEnumerable<Room>>> GetRoomByNameAsync(string name)
+        public async Task<ActionResult<IEnumerable<Room>>> GetRoomByNameAsync(string name, Room room)
         {
             if (name == null) return BadRequest("Nombre del pais es requerido!");
 
@@ -81,6 +87,11 @@ namespace HotelNetwork.Controllers
             if (room == null) return NotFound();// NotFound = 404 Http Status Code
 
             return Ok(room);// ok = 200 Http Status Code
+        }
+
+        private ActionResult<IEnumerable<Room>> BadRequest(string v)
+        {
+            throw new NotImplementedException();
         }
 
         private ActionResult<IEnumerable<Room>> NotFound()

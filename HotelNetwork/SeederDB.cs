@@ -27,5 +27,9 @@ namespace HotelNetwork
             await _context.SaveChangesAsync(); //Esta línea me guarda ls datos en BD
         }
 
+        private Task PopulateCountriesAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
