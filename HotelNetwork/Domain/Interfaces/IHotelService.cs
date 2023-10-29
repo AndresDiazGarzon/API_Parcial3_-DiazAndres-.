@@ -5,7 +5,7 @@ namespace HotelNetwork.Domain.Interfaces
     public interface IHotelService
     {
         Task<IEnumerable<State>> GetHotelAsync();// una firma de metodo    
-        Task<Hotel> CreateHotelAsync(Hotel hotel);
+        Task<Hotel> CreateHotelAsync(Hotel hotel, DateTime createDate);
         Task<Hotel> GetHoteleByIdAsync(Guid id);
         Task<Hotel> GetHotelByNameAsync(string name);
         Task<Hotel> EditHotelAsync(Hotel hotel);

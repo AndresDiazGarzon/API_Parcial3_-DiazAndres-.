@@ -9,10 +9,7 @@ namespace HotelNetwork.Controllers
     public class RoomsController
 
     {
-        private readonly IRoomService _hotelService;
-
         private readonly IRoomService _roomService;
-        private Room room;
 
         public RoomsController(IRoomService roomService)
         {
@@ -28,11 +25,21 @@ namespace HotelNetwork.Controllers
         {
             var rooms = await _roomService.GetRoomsAsync();// aqui estoy yebdo a mi capa de Domain para traer la lista de paises
             if (rooms == null || !rooms.Any()) // el metodo Any () significa si hay al menos un elemento.
-                                                       // el metodo !Any() significa si no hay absoluta/ nada.
+                                                 // el metodo !Any() significa si no hay absoluta/ nada.
             {
                 return NotFound();// NotFound = 404 Http Status Code
             }
             return Ok(rooms);// ok = 200 Http Status Code
+        }
+
+        private ActionResult<IEnumerable<Room>> Ok(Room rooms)
+        {
+            throw new NotImplementedException();
+        }
+
+        private ActionResult<IEnumerable<Room>> NotFound()
+        {
+            throw new NotImplementedException();
         }
 
         [HttpPost, ActionName("Create")]
@@ -46,19 +53,19 @@ namespace HotelNetwork.Controllers
                 {
                     return NotFound();// NotFound = 484 Http Status Code
                 }
-                return Ok(editedRoom: createdRoom);// Retorne un 200 y el objeto Room
+                return Ok(createdRoom);// Retorne un 200 y el objeto Room
             }
             catch (Exception ex)
             {
                 if (ex.Message.Contains("duplicate"))
                 {
-                    return Conflict(v: string.Format("El pais {0} ya existe.", room.Name));
+                    return Conflict(string.Format("El pais {0} ya existe.", room.Name));
                 }
                 return Conflict(ex.Message);
             }
         }
 
-        private ActionResult NotFound()
+        private ActionResult Conflict(string v)
         {
             throw new NotImplementedException();
         }
@@ -76,31 +83,22 @@ namespace HotelNetwork.Controllers
             return Ok(room);// ok = 200 Http Status Code
         }
 
-        public Room GetRoom()
-        {
-            return room;
-        }
-
-        [HttpGet, ActionName("GetByName")]
-        [Route("GetByName/{name}")]// URL: api/rooms/get
-        public async Task<ActionResult<IEnumerable<Room>>> GetRoomByNameAsync(string name, Room room)
-        {
-            if (name == null) return BadRequest("Nombre del pais es requerido!");
-
-
-            if ((Room?)await _roomService.GetRoomByNameAsync(name) == null) return NotFound();// NotFound = 404 Http Status Code
-
-            return Ok(editedRoom: await _roomService.GetRoomByNameAsync(name));// ok = 200 Http Status Code
-        }
-
         private ActionResult<IEnumerable<Room>> BadRequest(string v)
         {
             throw new NotImplementedException();
         }
 
-        private ActionResult<IEnumerable<Room>> NotFound(string v)
+        [HttpGet, ActionName("GetByName")]
+        [Route("GetByName/{name}")]// URL: api/rooms/get
+        public async Task<ActionResult<IEnumerable<Room>>> GetRoomByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            if (name == null) return BadRequest("Nombre del pais es requerido!");
+
+            var room = await _roomService.GetRoomByNameAsync(name);
+
+            if (room == null) return NotFound();// NotFound = 404 Http Status Code
+
+            return Ok(room);// ok = 200 Http Status Code
         }
 
         [HttpPut, ActionName("Edit")]// put es para editar
@@ -120,16 +118,6 @@ namespace HotelNetwork.Controllers
 
                 return Conflict(ex.Message);
             }
-        }
-
-        private ActionResult<Room> Conflict(string v)
-        {
-            throw new NotImplementedException();
-        }
-
-        private ActionResult<Room> Ok(Room editedRoom)
-        {
-            throw new NotImplementedException();
         }
 
         [HttpDelete, ActionName("Delete")]

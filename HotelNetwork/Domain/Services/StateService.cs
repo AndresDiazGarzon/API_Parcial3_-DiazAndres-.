@@ -13,7 +13,8 @@ namespace HotelNetwork.Domain.Services
         }
         public async Task<IEnumerable<State>> GetStatesAsync()
         {
-            return await _context.States.ToListAsync();
+            return await _context.States.ToListAsync();// Aqui lo que hago es traerme todos los datos
+                                                      //tengo en mi tabla States
 
         }
         public async Task<State> CreateStateAsync(State state)
@@ -24,7 +25,7 @@ namespace HotelNetwork.Domain.Services
                 state.CreateDate = DateTime.Now;
 
                 _context.States.Add(state);//Aqui estoy creado el objedo State en el contexto de mi BD
-                await _context.SaveChangesAsync();// Aqui ya estoy yendo a la BD para hacer el INSERT en la tabla Countries 
+                await _context.SaveChangesAsync();// Aqui ya estoy yendo a la BD para hacer el INSERT en la tabla States 
 
                 return state;
             }
@@ -39,8 +40,8 @@ namespace HotelNetwork.Domain.Services
 
         public async Task<State> GetStateByIdAsync(Guid id)
         {
-            //return await _context.Countries.FindAsync(id); // FindAsyn es un metodo propio del DbContext (Dbset)
-            //return await _context.Countries.FirstAsync(x => x.Id == id);// FirstAsync es un metodo de EF CORE
+            //return await _context.States.FindAsync(id); // FindAsyn es un metodo propio del DbContext (Dbset)
+            //return await _context.States.FirstAsync(x => x.Id == id);// FirstAsync es un metodo de EF CORE
             return await _context.States.FirstOrDefaultAsync(c => c.Id == id); // FirstOrDefaultAsync es un metodo de EF CORE
         }
 
@@ -55,7 +56,7 @@ namespace HotelNetwork.Domain.Services
             {
                 state.ModifiedDate = DateTime.Now;
 
-                Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<Country> entityEntry = _context.Countries.Update(state);//El metodo Update que es de EF CORE me sirve para actualizar un objeto
+                _context.States.Update(state);//El metodo Update que es de EF CORE me sirve para actualizar un objeto
                 await _context.SaveChangesAsync();
 
                 return state;
@@ -69,10 +70,10 @@ namespace HotelNetwork.Domain.Services
         {
             try
             {
-                // Aqui, con el ID que traigo desde el controller, estoy recuperando el estado que luego voy a eliminar
-                // ese pais que recupero lo guardo en la variable estado
+                // Aqui, con el ID que traigo desde el controller, estoy recuperando el pais que luego voy a eliminar
+                // ese pais que recupero lo guardo en la variable state
                 var state = await _context.States.FirstOrDefaultAsync(c => c.Id == id);
-                if (state == null) return null; // si el estado no existe, entonces me retorna un NULL
+                if (state == null) return null; // si el pais no existe, entonces me retorna un NULL
 
                 _context.States.Remove(state);
                 await _context.SaveChangesAsync();
@@ -84,5 +85,6 @@ namespace HotelNetwork.Domain.Services
                 throw new Exception(dbUpdateException.InnerException?.Message ?? dbUpdateException.Message);// Coallesences Notation --> ?
             }
         }
+
     }
 }

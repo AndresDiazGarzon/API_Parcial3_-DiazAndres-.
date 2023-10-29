@@ -19,5 +19,10 @@ namespace HotelNetwork.DAL.Entities
         public DateTime CreateDate { get; internal set; }
         public Guid Id { get; internal set; }
         public DateTime ModifiedDate { get; internal set; }
+
+        internal bool Any()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
