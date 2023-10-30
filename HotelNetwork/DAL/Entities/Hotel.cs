@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotelNetwork.DAL.Entities
 {

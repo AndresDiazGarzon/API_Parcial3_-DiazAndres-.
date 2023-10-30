@@ -5,6 +5,8 @@ namespace HotelNetwork.DAL
 {
     public class DataBaseContext : DbContext
     {
+        internal object Cities;
+
         //Con este contructor me podré conectar a la BD, me brinda unas opciones de configuración que ya están definidas internamente
         public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options)
         {

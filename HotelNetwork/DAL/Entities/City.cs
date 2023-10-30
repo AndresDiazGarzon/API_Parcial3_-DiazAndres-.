@@ -13,4 +13,4 @@ namespace HotelNetwork.DAL.Entities
         public Guid StateId { get; set; }    //FK
     }
 }
-}
+
