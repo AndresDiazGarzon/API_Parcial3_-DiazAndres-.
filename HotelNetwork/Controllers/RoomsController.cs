@@ -123,7 +123,7 @@ namespace HotelNetwork.Controllers
 
         [HttpDelete, ActionName("Delete")]
         [Route("Delete")]
-        public async Task<ActionResult<Room>> DeleteRoomAsync(Guid id)
+        public async Task<ActionResult<Room>> DeleteRoomAsync(Guid id, )
         {
             if (id == null) return BadRequest("Id es requerido!");
 
