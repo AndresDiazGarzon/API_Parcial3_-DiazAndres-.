@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "EvHpWj4O0WCQed8n0J3S90xrdA5pzNPZ+mpeTli49tHWWvSrDHVyke94eT7fbrQNDp1l+tV1AlYG/diZpTcfUg==",
+  "dgSpecHash": "kt0bdUi+Qt91dog4CcK3Xh5A9lmRUeAb9gApeZNFsjOyNuSwDhMk9pRS4vWG+idWzNDzeHvEImXpmRiATM6tJQ==",
   "success": true,
   "projectFilePath": "C:\\Projects\\HotelNetwork1\\HotelNetwork\\HotelNetwork.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\gw0024 r5\\.nuget\\packages\\documentformat.openxml\\2.20.0\\documentformat.openxml.2.20.0.nupkg.sha512",
     "C:\\Users\\gw0024 r5\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.22\\microsoft.entityframeworkcore.6.0.22.nupkg.sha512",
     "C:\\Users\\gw0024 r5\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.22\\microsoft.entityframeworkcore.abstractions.6.0.22.nupkg.sha512",
     "C:\\Users\\gw0024 r5\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.22\\microsoft.entityframeworkcore.analyzers.6.0.22.nupkg.sha512",
@@ -23,6 +24,7 @@
     "C:\\Users\\gw0024 r5\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
     "C:\\Users\\gw0024 r5\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\gw0024 r5\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.1\\system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",
+    "C:\\Users\\gw0024 r5\\.nuget\\packages\\system.io.packaging\\4.7.0\\system.io.packaging.4.7.0.nupkg.sha512",
     "C:\\Users\\gw0024 r5\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
   "logs": []

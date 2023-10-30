@@ -5,7 +5,7 @@ using HotelNetwork.Domain.Interfaces;
 namespace HotelNetwork.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]// esta es la primera parte de la URL de esta API: URL = api/countries
+    [Route("api/[controller]")] //Esta es la primera parte de la URL de esta API: URL = api/countries
     public class CountriesController : Controller
     {
         private readonly ICountryService _countryService;
@@ -39,7 +39,7 @@ namespace HotelNetwork.Controllers
         {
             try
             {
-                var createdCountry = await _countryService.CreateCountryAsync(country, country.CreateDate);
+                var createdCountry = await _countryService.CreateCountryAsync(country);
 
                 if (createdCountry == null)
                 {

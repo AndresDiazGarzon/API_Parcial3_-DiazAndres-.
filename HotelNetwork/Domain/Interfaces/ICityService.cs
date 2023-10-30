@@ -1,14 +1,15 @@
-﻿using HotelNetwork.DAL.Entities;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using HotelNetwork.DAL.Entities;
 
 namespace HotelNetwork.Domain.Interfaces
 {
-    public interface ICityService
+    public interface ICityService   
     {
-        Task<IEnumerable<City>> GetCitiesAsync();// una firma de metodo    
-        Task<City> CreateCityAsync(City city);
+        Task<IEnumerable<City>> GetCitysByCityIdAsync(Guid cityId);
+        Task<City> CreateCityAsync(City city, Guid countryId);
         Task<City> GetCityByIdAsync(Guid id);
-        Task<City> GetCityByNameAsync(string name);
-        Task<City> EditCityAsync(City city);    
-        Task<City> DeleteCityAsync(Guid Id);
+        Task<City> EditCityAsync(City city, Guid id);
+        Task<City> DeleteCityAsync(Guid id);
+        Task GetCitysByStateIdAsync(Guid stateId);
     }
 }

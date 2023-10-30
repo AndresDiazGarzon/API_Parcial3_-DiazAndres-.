@@ -1,12 +1,16 @@
 ﻿using HotelNetwork.DAL.Entities;
 using HotelNetwork.DAL;
 using Microsoft.EntityFrameworkCore;
+using HotelNetwork.Domain.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HotelNetwork.Domain.Services  
 {
     public class RoomService
     {
         private readonly DataBaseContext _context;
+        private object _roomService;
+
         public RoomService(DataBaseContext context)
         {
             _context = context;
@@ -17,25 +21,48 @@ namespace HotelNetwork.Domain.Services
                                                        //tengo en mi tabla Rooms
 
         }
+
+        [HttpPost]
+        [Route("Create")]
         public async Task<Room> CreateRoomAsync(Room room)
         {
             try
             {
-                room.Id = Guid.NewGuid();// asi se asigna automaticamente un ID a un nuevo registro
-                room.CreateDate = DateTime.Now;
-
-                _context.Rooms.Add(room);//Aqui estoy creado el objedo Room en el contexto de mi BD
-                await _context.SaveChangesAsync();// Aqui ya estoy yendo a la BD para hacer el INSERT en la tabla Rooms 
-
-                return room;
+                var createdRoom = await _roomService.CreateRoomAsync(room);
+                if (createdRoom == null)
+                {
+                    return NotFound();
+                }
+                return Ok(createdRoom);
             }
-            catch (DbUpdateException dbUpdateException)
+            catch (Exception ex)
             {
-                // Esta exception no captura un mensaje cuando el pais YA EXISTE (Duplicados)
-                throw new Exception(dbUpdateException.InnerException?.Message ?? dbUpdateException.Message);// Coallesences Notation --> ?
-
+                if (ex.Message.Contains("duplicate"))
+                {
+                    return Conflict(string.Format("{0} ya existe.", room.Name));
+                }
+                return BadRequest(ex.Message);
             }
+        }
 
+        private ActionResult<Room> BadRequest(string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        private ActionResult<Room> Conflict(string v)
+        {
+            throw new NotImplementedException();
+        }
+
+        private ActionResult<Room> Ok(object createdRoom)
+        {
+            throw new NotImplementedException();
+        }
+
+        private ActionResult<Room> NotFound()
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<Room> GetRoomByIdAsync(Guid id)

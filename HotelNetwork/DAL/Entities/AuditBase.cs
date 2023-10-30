@@ -9,5 +9,9 @@ namespace HotelNetwork.DAL.Entities
         public virtual Guid Id { get; init; }// sera el PK de todas las tablas de mi BD
         public virtual DateTime? CreateDate { get; init; }// campos nulleables, notacon elvis (?)
         public virtual DateTime? ModifiedDate { get; init; }       
+
+        [Display(Name = "Ciudad")]
+        //Relación con 
+        public State? State { get; set; } //Este representa un OBJETO 
     }
 }

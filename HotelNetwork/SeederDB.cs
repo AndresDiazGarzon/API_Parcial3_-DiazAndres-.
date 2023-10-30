@@ -1,4 +1,5 @@
 ﻿using HotelNetwork.DAL;
+using HotelNetwork.DAL.Entities;
 
 namespace HotelNetwork
 {
@@ -27,9 +28,52 @@ namespace HotelNetwork
             await _context.SaveChangesAsync(); //Esta línea me guarda ls datos en BD
         }
 
-        private Task PopulateCountriesAsync()
+        #region Private Methos
+        private async Task PopulateCountriesAsync()
         {
-            throw new NotImplementedException();
+            //El método Any() me indica si la tabla Countries tiene al menos un registro
+            //El método Any negado (!) me indica que no hay absolutamente nada en la tabla Countries.
+
+            if (!_context.Countries.Any())
+            {
+                //Así creo yo un objeto país con sus respectivos estados
+                _context.Countries.Add(new Country
+                {
+                    CreatedDate = DateTime.Now,
+                    Name = "Colombia",
+                    States = new List<State>()
+                    {
+                        new State
+                        {
+                            CreatedDate = DateTime.Now,
+                            Name = "Antioquia"
+                        },
+
+                        new State
+                        {
+                            CreatedDate = DateTime.Now,
+                            Name = "Cundinamarca"
+                        }
+                    }
+                });
+
+                //Aquí creo otro nuevo país
+                _context.Countries.Add(new Country
+                {
+                    CreatedDate = DateTime.Now,
+                    Name = "Argentina",
+                    States = new List<State>()
+                    {
+                        new State
+                        {
+                            CreatedDate = DateTime.Now,
+                            Name = "Buenos Aires"
+                        }
+                    }
+                });
+            }
         }
     }
+
+    #endregion
 }

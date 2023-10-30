@@ -15,5 +15,23 @@ namespace HotelNetwork.DAL.Entities
 
         [Display(Name = "Id País")]
         public Guid CountryId { get; set; } //FK
+        public override Guid Id { get => base.Id; init => base.Id = value; }
+        public override DateTime? CreateDate { get => base.CreateDate; init => base.CreateDate = value; }
+        public override DateTime? ModifiedDate { get => base.ModifiedDate; init => base.ModifiedDate = value; }
+
+        public override bool Equals(object? obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string? ToString()
+        {
+            return base.ToString();
+        }
     }
 }

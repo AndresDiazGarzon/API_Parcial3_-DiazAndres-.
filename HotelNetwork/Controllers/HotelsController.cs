@@ -65,11 +65,11 @@ namespace HotelNetwork.Controllers
 
             [HttpGet, ActionName("Get")]
             [Route("GetById/{id}")] //URL: api/hotels/get
-            public async Task<ActionResult<Hotel>> GetHotelByIdAsync(Guid id)
+            public async Task<ActionResult<Hotel>> GetHotelsByIdAsync(Guid id)  
             {
                 if (id == null) return BadRequest("Id es requerido!");
 
-                var hotel = await _hotelService.GetHotelByIdAsync(id);
+                var hotel = await _hotelService.GetHotelsByIdAsync(id);
 
                 if (hotel == null) return NotFound(); // 404
 

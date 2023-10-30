@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using HotelNetwork.DAL.Entities;
 using HotelNetwork.Domain.Interfaces;
+using HotelNetwork.Domain.Services;
 
 namespace HotelNetwork.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RoomsController
+    public class RoomsController : Controller
 
     {
         private readonly IRoomService _roomService;
@@ -128,8 +129,9 @@ namespace HotelNetwork.Controllers
 
             var deletedRoom = await _roomService.DeleteRoomAsync(id);
 
-            if (deletedRoom == null) return NotFound("Pais no encontrado");
+            if (deletedRoom == null) return NotFound("Habitacion no encontrada");
             return Ok(deletedRoom);
         }
     }
 }
+

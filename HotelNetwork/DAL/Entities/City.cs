@@ -2,21 +2,15 @@
 
 namespace HotelNetwork.DAL.Entities
 {
-    public class City : ICity
+    public class State : AuditBase
     {
-        [Display(Name = "Ciudad ")]
-        [MaxLength(50, ErrorMessage = "El campo {0} debe tener maximo {1} caracteres")]
+        [Display(Name = "Ciudad")]
+        [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         [Required(ErrorMessage = "¡El campo {0} es obligatorio!")]
-
         public string Name { get; set; }
-        [Display(Name = "Estado")]
 
-
-        public State? State { get; set; }// este representa un objeto de COUNTRY
-
-        [Display(Name = "Id Estado")]
-        public Guid StateId { get; set; }// FK
-        public Guid Id { get; internal set; }
-        public DateTime CreateDate { get; internal set; }
+        [Display(Name = "Id País")]
+        public Guid StateId { get; set; }    //FK
     }
+}
 }

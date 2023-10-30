@@ -13,20 +13,21 @@ namespace HotelNetwork.Domain.Services
         }
         public async Task<IEnumerable<City>> GetCitiesAsync()
         {
-            return await _context.Cities.ToListAsync();// Aqui lo que hago es traerme todos los datos//tengo en mi tabla Cities
-        }
+            return await _context.Cities.ToListAsync();// Aqui lo que hago es traerme todos los datos
+                                                       //tengo en mi tabla Cities
 
-        public async Task<City> CreateCityAsync(City city)
+        }
+        public async Task<City> CreateCityAsync(City state)
         {
             try
             {
-                city.Id = Guid.NewGuid();// asi se asigna automaticamente un ID a un nuevo registro
-                city.CreateDate = DateTime.Now;
+                state.Id = Guid.NewGuid();// asi se asigna automaticamente un ID a un nuevo registro
+                state.CreateDate = DateTime.Now;
 
-                object value = _context.Cities.Add(city);//Aqui estoy creado el objedo City en el contexto de mi BD
+                _context.Cities.Add(state);//Aqui estoy creado el objedo City en el contexto de mi BD
                 await _context.SaveChangesAsync();// Aqui ya estoy yendo a la BD para hacer el INSERT en la tabla Cities 
 
-                return city;
+                return state;
             }
             catch (DbUpdateException dbUpdateException)
             {
@@ -49,16 +50,16 @@ namespace HotelNetwork.Domain.Services
             return await _context.Cities.FirstOrDefaultAsync(c => c.Name == name);
         }
 
-        public async Task<City> EditCityAsync(City city)
+        public async Task<City> EditCityAsync(City state)
         {
             try
             {
-                city.ModifiedDate = DateTime.Now;
+                state.ModifiedDate = DateTime.Now;
 
-                _context.Cities.Update(city);//El metodo Update que es de EF CORE me sirve para actualizar un objeto
+                _context.Cities.Update(state);//El metodo Update que es de EF CORE me sirve para actualizar un objeto
                 await _context.SaveChangesAsync();
 
-                return city;
+                return state;
             }
             catch (DbUpdateException dbUpdateException)
             {
@@ -70,14 +71,14 @@ namespace HotelNetwork.Domain.Services
             try
             {
                 // Aqui, con el ID que traigo desde el controller, estoy recuperando el pais que luego voy a eliminar
-                // ese pais que recupero lo guardo en la variable city
-                var city = await _context.Cities.FirstOrDefaultAsync(c => c.Id == id);
-                if (city == null) return null; // si el pais no existe, entonces me retorna un NULL
+                // ese pais que recupero lo guardo en la variable state
+                var state = await _context.Cities.FirstOrDefaultAsync(c => c.Id == id);
+                if (state == null) return null; // si el pais no existe, entonces me retorna un NULL
 
-                object value = _context.Cities.Remove(city);
+                _context.Cities.Remove(state);
                 await _context.SaveChangesAsync();
 
-                return city;
+                return state;
             }
             catch (DbUpdateException dbUpdateException)
             {
