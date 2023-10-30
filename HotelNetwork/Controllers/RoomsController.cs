@@ -60,7 +60,7 @@ namespace HotelNetwork.Controllers
             {
                 if (ex.Message.Contains("duplicate"))
                 {
-                    return Conflict(string.Format("El pais {0} ya existe.", room.Name));
+                    return Conflict(string.Format("la habitacion {0} ya existe.", room.Name));
                 }
                 return Conflict(ex.Message);
             }
@@ -123,7 +123,7 @@ namespace HotelNetwork.Controllers
 
         [HttpDelete, ActionName("Delete")]
         [Route("Delete")]
-        public async Task<ActionResult<Room>> DeleteRoomAsync(Guid id, )
+        public async Task<ActionResult<Room>> DeleteRoomAsync(Guid id)
         {
             if (id == null) return BadRequest("Id es requerido!");
 
